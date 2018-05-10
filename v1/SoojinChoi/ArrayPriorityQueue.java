@@ -1,100 +1,93 @@
-//Jason Kim
-//APCS2 pd8
-//HW#46 -- Arrr, There Be Priorities Here Matey
-//2018-05-09
-
+// Soojin Choi
+// APCS2 pd08
+// HW46 -- Arrr, There Be Priorities Here Matey
+// 2018-05-10
 import java.util.ArrayList;
-
-public class ArrayPriorityQueue implements PriorityQueue {
-
-    private ArrayList<String> data; //holds all the strings
-    private int size; //stores size
-
-    public ArrayPriorityQueue() {
-	data = new ArrayList<String>(); //initialize
-	size = 0;
-    }
-
-    public void add(String str) {
-	data.add(str); //use the arraylist method
-	size++; //increase size
-    }
-
-    public boolean isEmpty() {
-	return (size == 0); //simply check
-    }
-
-    public String peekMin() {
-	if (isEmpty()) { //if empty, don't run the main body
-	    return null;
-	}
-	String min = data.get(0); //stores the minimum string
-	for (String s: data) { //as we go through the data
-	    if (s.compareTo(min) < 0) { //compare the min and current string
-		min = s; //record whenever we see a smaller string
-	    }
-	}
-	return min; //return
-    }
-
-    public String removeMin() {
-	if (isEmpty()) { //don't run if empty
-	    return null;  
-	}
-	String min = data.get(0); //stores the minimum string
-	int index = 0; //stores the index to remove from
-	int curr = 0; //for ease
-	for (String s: data) { //as we go through the data
-	    if (s.compareTo(min) < 0) { //compare the min and current string
-		min = s; //record whenever we see a smaller string
-		index = curr; //update index 
-	    }
-	    curr++; //update curr
-	}
-	size--; //decrease size
-	data.remove(index); //remove
-	return min; //return
-    }
-
-    public String toString() {
-	String ret = "";
-	for (String s: data) {
-	    ret = ret + s + " ";
-	}
-	return ret;
-    }
-
-    public static void main (String[]args) {
-	ArrayPriorityQueue test = new ArrayPriorityQueue();
+import java.lang.RuntimeException;
+public class ArrayPriorityQueue implements PriorityQueue<String>{
 	
-	System.out.println("IsEmpty?: " + test.isEmpty());
-	test.add("foo"); //3
-	test.add("doo"); //2
-	test.add("coo"); //1 (min)
-	test.add("goo"); //4
-	test.add("zoo"); //5
-	System.out.println(test);
-	System.out.println("==========================");
-	System.out.println(test.peekMin()); //coo
-	System.out.println(test.removeMin());
-	System.out.println(test);
-	System.out.println("==========================");
-	System.out.println(test.peekMin()); //doo
-	System.out.println(test.removeMin());
-	System.out.println(test);
-	System.out.println("==========================");
-	System.out.println(test.peekMin()); //foo
-	System.out.println(test.removeMin());
-	System.out.println(test);
-	System.out.println("==========================");
-	System.out.println(test.peekMin()); //goo
-	System.out.println(test.removeMin());
-	System.out.println(test);
-	System.out.println("==========================");
-	System.out.println(test.peekMin()); //zoo
-	System.out.println(test.removeMin());
-	System.out.println(test);
-    }
-    
-    
+	ArrayList<String> data;
+	//Constructor
+	public ArrayPriorityQueue(){
+		data = new ArrayList<String>();
+	}
+	//Methods
+	/* Adds a new value at the end of the ArrayList - the front of the 	   Queue 
+	   Keeps order of Queue -- Runtime O(1) */
+	public void add(String newVal){
+		data.add(newVal);
+	}
+	/* Returns true if ArrayList has no elements */
+	public boolean isEmpty(){
+		return data.size() == 0;
+	}
+	/* Compares the data and returns the Min value of the Queue
+	   Runtime -- O(n)*/
+	public String peekMin(){
+		String currMin = "";
+		if (isEmpty()){
+			throw new RuntimeException();
+		}
+		if(data.size() - 1 == 0){
+			currMin = data.get(0);
+		}
+		for (int x = data.size()-1; x > 0 ; x--){
+			int comparison = data.get(x).compareTo(data.get(x-1));
+			System.out.println(comparison);
+			if (comparison < 0){
+				currMin = data.get(x);
+			}
+			else{
+				currMin = data.get(x-1);
+			}
+		}
+		return currMin;
+	}
+	/** Removes the Min of the Queue and returns the Min value of the 	    Queue
+	  * Runtime -- O(n)*/
+	public String removeMin(){
+		if (isEmpty()){
+			throw new RuntimeException();
+		}
+		String target = peekMin();
+		for (int x = data.size()-1; x >= 0 ; x--){
+			if (data.get(x) == target){
+				data.remove(x);
+				return target;
+			}
+		}
+		return "Empty";
+	}
+	//ToString.. Return Queue front -> back. (ArrayList back -> front)
+	public String toString(){
+		String retVal = "";
+		for (int x = data.size() - 1; x >= 0; x--){
+			retVal += data.get(x) + " | ";
+		}
+		return retVal;
+	}
+	public static void main(String [] args){
+		ArrayPriorityQueue compare = new ArrayPriorityQueue();
+		/*compare.add("may");
+		compare.add("of");
+		compare.add("fifth");
+		compare.add("the");
+		compare.add("not");
+		compare.add("is");
+		compare.add("today");*/
+		compare.add("a");
+		compare.add("b");
+		compare.add("d");
+		compare.add("c");
+		System.out.println("Original Queue" + compare);
+		int counter = 5;
+		while (counter > 1){
+			System.out.println("Removing ... " + compare.peekMin());
+			compare.removeMin();
+			System.out.println("Current state after remove:" + compare);
+			System.out.println("- - - - - - - - - - - - - - - - - - -");
+			System.out.println();
+			counter --;
+		}
+	}
 }

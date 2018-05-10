@@ -3,7 +3,7 @@
 ### LAB#03
 
 #### Method Summary/Decisions
-<p><b> add(String str) <b><p>
+<p><b> add(String str) </b></p>
 
 #### Time Complexity of the Methods
 <p> add(String str) 

@@ -26,7 +26,7 @@ public class ArrayPriorityQueue implements PriorityQueue {
 
     public String peekMin() {
 	if (isEmpty()) { //if empty, don't run the main body
-	    return null;
+	    throw new RuntimeException();
 	}
 	String min = data.get(0); //stores the minimum string
 	for (String s: data) { //as we go through the data
@@ -39,7 +39,7 @@ public class ArrayPriorityQueue implements PriorityQueue {
 
     public String removeMin() {
 	if (isEmpty()) { //don't run if empty
-	    return null;  
+	    throw new RuntimeException(); 
 	}
 	String min = data.get(0); //stores the minimum string
 	int index = 0; //stores the index to remove from

@@ -1,7 +1,7 @@
 # Team SAK -- Jason Kim, Soojin Choi, Adrian Kloskowski
 ## APCS2 pd8
 
-## Heap
+## Min Heap
 
 ### To-Do
 1) public ALHeap() -- Constructor is necessary to make instances. 

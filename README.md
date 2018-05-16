@@ -4,12 +4,12 @@
 ## Heap
 
 ### To-Do
-<li> 1) public ALHeap() -- Constructor is necessary to make instances. </li>
-<li> 2) public String toString() -- Great for visualization when testing future methods. </li>
-<li> 3) public boolean isEmpty() -- Simple to implement, is used for later methods. </li>
-<li> 4) public void add(Integer addVal) -- We now have all the resources to visual addition. This is also one of the core methods that make this Min Heap what it is. </li>
-<li> 5) private int minChildPos(int pos) -- Is a helper method for removeMin(). </li>
-<li> 6) public Integer removeMin() -- Now we have elements to remove and the necessary helper methods. </li>
+1) public ALHeap() -- Constructor is necessary to make instances. 
+2) public String toString() -- Great for visualization when testing future methods.
+3) public boolean isEmpty() -- Simple to implement, is used for later methods. 
+4) public void add(Integer addVal) -- We now have all the resources to visual addition. This is also one of the core methods that make this Min Heap what it is. 
+5) private int minChildPos(int pos) -- Is a helper method for removeMin(). 
+6) public Integer removeMin() -- Now we have elements to remove and the necessary helper methods. 
 
 ## LAB#03 -- PriorityQueue
 

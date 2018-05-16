@@ -35,11 +35,11 @@ public class ALHeap
      *****************************************************/
     public String toString() 
     {
-	String ret = ""; //initialize
+	String ret = "";     //initialize
 	for (int i: _heap) { //for each integer
-	    ret += i + " "; //add it to ret
+	    ret += i + " ";  //add it to ret
 	}
-	return ret;
+	return ret;          //return
     }//O(n)
 
 
@@ -77,14 +77,14 @@ public class ALHeap
      *****************************************************/
     public void add( Integer addVal )
     {
-        _heap.add(addVal); //add addVal to the end of the ArrayList
-	if (_heap.size() == 1) {
-	    return;
+        _heap.add(addVal);                                    //add addVal to the end of the ArrayList
+	if (_heap.size() == 1) {                              //if it was the first element added
+	    return;                                           //stop there
 	}
-	int index = _heap.size() - 1; //index keeps track of where addVal is
+	int index = _heap.size() - 1;                         //index keeps track of where addVal is
 	while(index > 0 && addVal < _heap.get((index-1)/2)) { //while the condition is not met
-	    swap(index, (index-1)/2); //swap addVal with its parent
-	    index = (index-1)/2; //get the new index
+	    swap(index, (index-1)/2);                         //swap addVal with its parent
+	    index = (index-1)/2;                              //get the new index
 	}
     }//O(logn)
 
@@ -93,11 +93,34 @@ public class ALHeap
      * removeMin()  ---  means of removing an element from heap
      * Removes and returns least element in heap.
      * Postcondition: Tree maintains heap property.
+     * Implementation:
+     * 1) Swap the last element with the first (lowest)
+     * 2) Remove the new last element
+     * 3) With the new first element, keep swapping with children when necessary
      *****************************************************/
     public Integer removeMin()
     {
-	return 1;
-    }//O(?)
+	if (isEmpty()) {                  //if empty
+	    return null;                  //stop
+	}
+	if (_heap.size() == 1) {          //if there is only one element
+	    return _heap.remove(0);       //simply remove
+	}
+	
+	Integer ret = peekMin();          //get the integer that will be removed
+        swap(_heap.size()-1, 0);          //swap the first and last element of _heap
+	_heap.remove(_heap.size()-1);     //remove the last element
+	int index = 0;                    //stores the index of the element we must carry
+	int possNew = minChildPos(index); //stores the index of the child that has the potential to swap
+
+	//In this process, as long there is a child and it has a lower value than the parent, swap
+	while(index*2+1 < _heap.size() && _heap.get(index) > _heap.get(possNew)) {
+	    swap(index, possNew);
+	    index = possNew;
+	    possNew = minChildPos(index);
+	}
+	return ret;
+    }//O(logn)
 
 
     /*****************************************************
@@ -105,11 +128,41 @@ public class ALHeap
      * Returns index of least child, or 
      * -1 if no children, or if input pos is not in ArrayList
      * Postcondition: Tree unchanged
+     * Implementation:
+     * 1) Check is it's out of bounds. Calculate the index of the left and right child
+     * 2) Check if it only has one child, return that child
+     * 3) Check if it has 2 children, return the one with the lower value
+     * 4) If all fails, return -1
      *****************************************************/
     private int minChildPos( int pos )
     {
-	return 1;
-    }//O(?)
+	//pos is not in _heap
+	if (pos >= _heap.size()) {                          //check if out of bounds
+	    return -1;                                      //if so, return -1
+	}
+	int left = (pos*2) + 1;                             //get left child index
+	int right = (pos*2) + 2;                            //get right child index
+	
+	//only one child
+	if (left < _heap.size() && _heap.size() <= right) { //only has a left child
+	    return left;                                    //return that left child's index
+	}
+
+	//two children
+	if (left < _heap.size() && right < _heap.size()) {  //check that it does have 2 children
+	    Integer a = _heap.get(left);                    //set a = to the element at index left
+	    Integer b = _heap.get(right);                   //set b = to the element at index right
+	    if (minOf(a,b) == a) {                          //if a is smaller
+		return left;                                //return left index
+	    }
+	    else {                                          //otherwise
+		return right;                               //return right index
+	    }
+	}
+
+	//no children
+	return -1;                                          //if no other conditions apply, return -1
+    }//O(1)
   
 
     //************ aux helper fxns ***************
@@ -156,29 +209,35 @@ public class ALHeap
 	  System.out.println(pile);
 	  pile.add(9);
 	  System.out.println(pile);
+
+	  System.out.println(pile.minChildPos(0));
+	  System.out.println(pile.minChildPos(1));
+	  System.out.println(pile.minChildPos(2));
+	  System.out.println(pile.minChildPos(3));
+	  
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
+	  System.out.println("removing " + pile.removeMin() + "...");
+	  System.out.println(pile);
 	  /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
-	  System.out.println("removing " + pile.removeMin() + "...");
-	  System.out.println(pile);
 	  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     }//end main()
 

@@ -22,7 +22,7 @@ public class ALHeap
      *****************************************************/
     public ALHeap() 
     {
-	_heap = new ArrayList<Integer>();
+	_heap = new ArrayList<Integer>(); //initialize
     }
 
 
@@ -35,9 +35,9 @@ public class ALHeap
      *****************************************************/
     public String toString() 
     {
-	String ret = "";
-	for (int i: _heap) {
-	    ret += i + " ";
+	String ret = ""; //initialize
+	for (int i: _heap) { //for each integer
+	    ret += i + " "; //add it to ret
 	}
 	return ret;
     }//O(n)
@@ -50,7 +50,7 @@ public class ALHeap
      *****************************************************/
     public boolean isEmpty()
     {
-	return _heap.size() == 0;
+	return _heap.size() == 0; 
     }//O(1)
 
 
@@ -70,10 +70,21 @@ public class ALHeap
      * add(Integer) 
      * Inserts an element in the heap
      * Postcondition: Tree exhibits heap property.
+     * Implementation: 
+     * 1) Insert addVal to the end of _heap
+     * 2) While the Min Heap condition is not met, swap addVal with its parent
+     * 3) Stop swapping once the Min Heap condition is met
      *****************************************************/
     public void add( Integer addVal )
-    { 
-    }//O(?)
+    {
+        _heap.add(addVal); //add addVal to the end of the ArrayList
+	int index = _heap.size(); //index keeps track of where addVal is
+	while(addVal < _heap.get((index-1)/2)) { //while the condition is not met
+	    swap(index, (index-1)/2); //swap addVal with its parent
+	    index = (index-1)/2; //get the new index
+	}
+    }
+    }//O(logn)
 
 
     /*****************************************************

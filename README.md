@@ -12,7 +12,21 @@
 6) public Integer removeMin() -- Now we have elements to remove and the necessary helper methods. 
 
 ### Method Summary/Runtime
+<p><b> add(Integer addVal) </b></p>
+<p> We added addVal to the end of the _heap ArrayList. From there, we checked if its current parent had a larger value, and if it did, the two swapped. This kept going on until the Min Heap condition was met. </p>
+<p>- Runtime is Log(n).</p>
 
+<p><b> isEmpty() </b></p>
+<p> We used the size() method from ArrayList _heap to determine if it was empty. </p>
+<p>- Runtime is Constant Time.</p>
+
+<p><b> minChildPos(int pos) </b></p>
+<p> We used parentIndex * 2 + 1 for the left child and parentIndex * 2 + 2 for the right child. From there, we compared the two values if both children existed. If not, we just returned the index of the one child or -1. </p>
+<p>- Runtime is Constant Time.</p>
+
+<p><b> removeMin() </b></p>
+<p> We first swapped the root and the furthest right element of the bottom level. From there, we carried that past furthest right element down where it was appropriate with the help of minChildPos(int pos).</p>
+<p>- Runtime is Log(n).</p>
 
 ## PriorityQueue (v1 + v2)
 ### Method Summary/Runtime

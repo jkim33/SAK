@@ -2,6 +2,11 @@
 ## APCS2 pd8
 ## LAB#03 -- PriorityQueue + Min Heap
 
+## RunMed (rmed)
+### Algorithm
+<p> This system takes advantage of 2 Heaps, one min, one max. The first element always goes to the MaxHeap. From there, every element afterwards goes into the appropriate Heap, depending on the its value compared to the root of the MaxHeap. If the new element is smaller, we add it to the MaxHeap. If not, it's added to the MinHeap. From there, if the size difference between the 2 Heaps is greater than 1, we remove elements from the larger Heap and add them to the smaller one. </p>
+<p> When getting the median, if there are no elements in either Heap, throw and exception. If one Heap is larger, return the root of that Heap. If the 2 Heaps are equal in size, return the mean of the 2 roots. </p>
+
 ## Min Heap (almh)
 ### To-Do
 1) public ALHeap() -- Constructor is necessary to make instances. 
